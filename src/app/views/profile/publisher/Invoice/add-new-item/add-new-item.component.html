@@ -1,0 +1,151 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+      <div class="card-title-text">Adding New Item</div>
+      <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+      <mat-horizontal-stepper [linear]="true">
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Category Information</ng-template>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-16">
+                    <div class="pb-16">
+                        <Label fxFlex="100px">Book Type*</Label>
+                        <mat-radio-group (change)="onChange($event)"
+                        name="bookcategory" 
+                        formControlName="bookcategory">
+                            <mat-radio-button fxFlex="100px" value="textbook">Text Book</mat-radio-button>
+                            <mat-radio-button fxFlex="100px" value="supplementary">Supplementary Book</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+
+                    <div class="pb-16">
+                        <mat-form-field class="full-width">
+                            <mat-label>Series Group</mat-label>
+                            <mat-select formControlName="series_id" required>
+                                <mat-option *ngFor="let series of series" [value]="series.id">
+                                    {{series.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Subject is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-16">
+                        <button mat-raised-button color="primary" (click)="openAddSeries({}, true)">Add A New Series Group </button>
+                    </div>
+                </div>
+            </div>
+            <div class="pb-16">
+                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Book Information</ng-template>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-16">
+                    <div class="pb-16">
+                        <mat-form-field class="full-width">
+                            <mat-label>Class</mat-label>
+                            <mat-select formControlName="learnerstage_id" required>
+                                <mat-option *ngFor="let learnerstage of learnerstages" [value]="learnerstage.id">
+                                    {{learnerstage.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Class is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-16">
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="name"
+                            formControlName="name"
+                            placeholder="Title of the book">
+                          </mat-form-field>
+                    </div>
+
+                    <div class="pb-16">
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="price"
+                            formControlName="price"
+                            placeholder="Price of the Book">
+                          </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="50">
+
+                    <div class="pb-16">
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="stock"
+                            formControlName="stock"
+                            placeholder="Number of Books In Inventory">
+                          </mat-form-field>
+                    </div>
+
+                    <div class="pb-16">
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="edition"
+                            formControlName="edition"
+                            placeholder="Edition of the Book">
+                          </mat-form-field>
+                    </div>
+
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                          <input
+                          matInput
+                          name="sale"
+                          formControlName="sale"
+                          placeholder="The reduced sale price">
+                        </mat-form-field>
+                  </div>
+
+                    <div class="pb-16">
+                        <mat-label fxFlex="100px">Book Cover</mat-label>
+                            <input 
+                            id="file" 
+                            type="file" 
+                            accept="image/*"
+                            class="form-control"
+                            (change)="onFileChange($event)">
+                        
+                
+                    </div>
+
+                    <img [src]="imageSrc" *ngIf="imageSrc" style="height: 40px; width:50px">
+
+                </div>
+            </div>
+            <div fxLayout="row">
+              <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+              <span fxFlex="8px"></span>
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <div>
+            <mat-icon class="pt-16" [style.fontSize]="'36px'">check</mat-icon>
+          </div>
+          <div class="pb-16 mb-16"> You Are Done.</div>
+          <div fxLayout="row">
+            <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+            <span fxFlex="8px"></span>
+            <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </mat-card-content>
+  </mat-card>

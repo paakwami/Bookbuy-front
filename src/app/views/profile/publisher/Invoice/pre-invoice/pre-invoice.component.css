@@ -1,0 +1,36 @@
+.invoicehead{
+    margin-bottom: 2px;
+   
+}
+.invoicedetails{
+    display: flex;
+    flex-direction: row-reverse;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.downbuttons{
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.invoiceuser{
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+}
+h1{
+    font-size: 20px;
+}
+.viewtable{
+    max-width:  1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+@media print-section{
+    :not(.print) {
+      display: none !important;
+    }
+  }

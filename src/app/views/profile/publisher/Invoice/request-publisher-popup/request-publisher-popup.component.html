@@ -1,0 +1,25 @@
+<h1 matDialogTitle>Request to Sell Stock for Publisher</h1>
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-label>Publishers</mat-label>
+        <mat-select formControlName="id" required>
+            <mat-option *ngFor="let publisher of publishers" [value]="publisher.id">
+                {{publisher.name}}
+            </mat-option>
+        </mat-select>
+        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+        <mat-error>You must select a publisher</mat-error>
+    </mat-form-field>
+    </div> 
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Apply</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

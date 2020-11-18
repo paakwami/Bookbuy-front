@@ -1,0 +1,9 @@
+.pending{
+    color: rgb(223, 51, 51);
+}
+.serving{
+    color: rgb(202, 199, 8);
+}
+.served{
+    color: rgb(13, 187, 85);
+}

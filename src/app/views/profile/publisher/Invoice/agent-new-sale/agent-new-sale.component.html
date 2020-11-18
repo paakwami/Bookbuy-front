@@ -1,0 +1,107 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">Selling Form</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+
+        <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+            <div class="card m-3">
+
+                <div fxLayout="row wrap">
+                    <div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+                        <mat-form-field class="pt-1 pb-1">
+                            <mat-label>Number of Items:</mat-label>
+                            <mat-select formControlName="numberOfTickets"  (selectionChange)="onChangeTickets($event)" required>
+                                <mat-option *ngFor="let i of length"  [value]="i">
+                                    {{i}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                            <div *ngIf="submitted && f.numberOfTickets.errors">
+                            <mat-error *ngIf="f.numberOfTickets.errors.required">How many items should be on the Invoice</mat-error>
+                            </div>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="100" fxFlex.gt-xs="30">
+                        <mat-form-field class="pt-1 pb-1">
+                            <input matInput placeholder="Discount" formControlName="discount" required>
+                        </mat-form-field>
+
+                    </div>
+                    
+                </div>
+
+                <div *ngFor="let ticket of t.controls; let i = index">
+       
+                        <h5 colour="accent" class="card-title">Item {{i + 1}}</h5>
+
+                        <form [formGroup]="ticket">
+                            <div fxLayout="row wrap">
+                                <div fxFlex="100" fxFlex.gt-xs="40" class="pr-1"> 
+
+                                    <div class="pb-1">
+                                        <mat-label>Select and Item:</mat-label>
+                                            <mat-select formControlName="item" required>
+                                                <mat-option [disabled]="i.status == 0" *ngFor="let i of pitems"  [value]="i">
+                                                    {{i.name}} - {{i.class}} - GHC {{i.price}} - Edition {{i.edition}}
+                                                </mat-option>
+                                            </mat-select>
+                                        <div *ngIf="submitted && ticket.controls.item.errors">
+                                        <mat-error *ngIf="ticket.controls.item.errors.required">You must select an Item</mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                    <div fxFlex="100" fxFlex.gt-xs="40">
+                                        <div class="pb-1">
+                                            <mat-form-field class="full-width">
+                                                <input
+                                                matInput
+                                                name="quantity"
+                                                formControlName="quantity"
+                                                placeholder="Quantity (Min Length: 4, Max Length: 9)"
+                                                value="">
+                                            </mat-form-field>
+                                            <div *ngIf="submitted && ticket.controls.quantity.errors">
+                                                <small 
+                                                *ngIf="ticket.controls.quantity.errors.required"
+                                                class="form-error-msg">Quantity must have a value</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <span fxFlex="8px"></span>
+                                    <div fxFlex="100" fxFlex.gt-xs="10">
+                                        <button mat-raised-button class="mb-05" color="primary" (click)="removeitem(i)">Remove</button>
+                                    </div>
+                            </div>
+                        </form>
+                </div>
+                <div class="card-footer text-center">
+                    <button mat-raised-button class="mb-05" color="primary" >Calculate Sale</button>
+                    <span fxFlex="8px"></span>
+                    <button mat-raised-button class="mb-05" color="warn" type="reset" (click)="onReset()">Reset</button>
+                    <span fxFlex="8px"></span>
+                    <button *ngIf='role.publisher' mat-raised-button class="mb-05" color="accent" routerLink="/invoice/home" >Discard Sale Return to Agents</button>
+                    <button *ngIf='role.agent' mat-raised-button class="mb-05" color="accent" routerLink="/invoice/retail" >Discard Sale Return to Retailers</button>
+                    <button *ngIf="afterdiscount" mat-raised-button class="mb-05" color="accent"(click)="calculateSale()" >Make Sale</button>
+                    <span fxFlex="200px"></span>
+                    <div *ngIf="afterdiscount" class="profile-title text-center mb-1">
+                        <div class="main-title">Total: <b>GHC {{totalsale}}</b></div>
+                        <span fxFlex="100px"></span>
+                        <div class="main-title">Sale After Discount: <b>GHC {{afterdiscount}}</b></div>
+                        <span fxFlex="20px"></span>
+                      </div>
+                </div>
+                
+
+
+            </div>
+        </form>
+
+    </mat-card-content>
+</mat-card>
+
+
+

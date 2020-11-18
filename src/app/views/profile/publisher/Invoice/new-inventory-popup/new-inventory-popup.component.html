@@ -1,0 +1,79 @@
+<h1 matDialogTitle>Add A New Item</h1>
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="name"
+        [formControl]="itemForm.controls['name']"
+        placeholder="Name">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-label>Class</mat-label>
+        <mat-select formControlName="learner_stage_id" required>
+            <mat-option *ngFor="let learnerstage of learnerstages" [value]="learnerstage.id">
+                {{learnerstage.name}}
+            </mat-option>
+        </mat-select>
+        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+        <mat-error>Class is required!</mat-error>
+    </mat-form-field>
+    </div>
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-label>Subject</mat-label>
+        <mat-select formControlName="subject_id" required>
+            <mat-option *ngFor="let subject of subjects" [value]="subject.id">
+                {{subject.name}}
+            </mat-option>
+        </mat-select>
+        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+        <mat-error>Subject is required!</mat-error>
+    </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="edition"
+        [formControl]="itemForm.controls['edition']"
+        placeholder="Edition">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="price"
+        [formControl]="itemForm.controls['price']"
+        placeholder="Price">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="stock"
+        [formControl]="itemForm.controls['stock']"
+        placeholder="Stock">
+      </mat-form-field>
+    </div>
+
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

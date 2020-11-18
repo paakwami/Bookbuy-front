@@ -1,0 +1,21 @@
+<mat-card class="default">
+  <mat-card-title>
+    Suppliers Table
+  </mat-card-title>
+  
+  <mat-card-content class="pt-0">
+
+    <ngx-datatable class="material fullscreen bg-white" 
+    style="height: calc(100vh - 160px)" 
+    [columnMode]="'force'"  
+    [headerHeight]="50"
+    [footerHeight]="0" 
+    [rowHeight]="50"
+    [scrollbarV]="true"
+    [scrollbarH]="true"
+    [rows]="rows"
+    [columns]="columns">
+    </ngx-datatable>
+   
+  </mat-card-content>
+</mat-card>

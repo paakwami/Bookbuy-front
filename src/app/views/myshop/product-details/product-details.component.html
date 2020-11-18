@@ -1,0 +1,39 @@
+<div class="product-details-wrap m-333" fxLayout="row wrap" fxLayout.lt-md="column">
+    <div fxLayout="row" fxFlex="100" class="mb-8">
+      <button mat-icon-button class="text-muted" routerLink="/myshop"><mat-icon>chevron_left</mat-icon> <span >Back to Shop</span></button>
+      <span fxFlex></span>
+      <span fxFlex="20px"></span>
+      <button mat-raised-button color="primary" routerLink="/myshop/cart">
+        <mat-icon>shopping_cart</mat-icon> Cart ({{cartData?.itemCount}})</button>
+    </div>
+    <div fxFlex.lt-md="auto" fxFlex="50" class="product-photos-wrap">
+  
+        <div class="gallery-photo" [@animate]="{value:'*',params:{delay: '100ms', y:'50px'}}">
+            <img class="mat-elevation-z2" [src]="Item.picture" alt="" style="height: 400px; width:600px">
+          </div>
+    </div>
+  
+    <div fxFlex="50" class="product-content-wrap" [@animate]="{value:'*',params:{delay: '100ms', x:'50px'}}">
+      <div class="product-rating" >
+        <star-rating  [starType]="'svg'" [readOnly]="true" [size]="'medium'" [staticColor]="'ok'">
+        </star-rating>
+        <small class="text-muted"></small>
+      </div>
+      <h1 class="title">{{Item.name}}</h1>
+      <div class="main-info mb-16">
+        <p class="text-muted p-line"><strong>Class:</strong> <span class="mat-color-default"> {{Item.class_name}}</span></p>
+        <p class="text-muted p-line"><strong>Subjecr:</strong> <span ><span class="mat-color-default"></span> {{Item.subject_name}}</span></p>
+      </div>
+    
+        <div class="opt-quantity mb-16">
+          <label class="option-label text-muted" for="quantity">Quantity: </label>
+          <input class="quantity-input default-bg" id="quantity" name="quantity" type="number" [(ngModel)]="quantity">
+        </div>
+      
+      <div fxLayout="row">
+        <button mat-raised-button color="accent" (click)="addToCart()"><mat-icon>add_shopping_cart</mat-icon> Add to Cart</button>
+        <span fxFlex="8px"></span>
+        <button mat-raised-button color="primary" routerLink="/myshop"><mat-icon>chevron_left</mat-icon> Back to Shop</button>
+      </div>
+    </div>
+  </div>

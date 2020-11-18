@@ -1,0 +1,9 @@
+.centercrop {
+    object-fit: cover
+  }
+.spiral{
+  max-width: 400px;
+}
+.main-info{
+  min-height: 80px;
+}

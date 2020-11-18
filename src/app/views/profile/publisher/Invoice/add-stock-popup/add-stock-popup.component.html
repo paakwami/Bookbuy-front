@@ -1,0 +1,35 @@
+<h1 matDialogTitle>Add Stock</h1>
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-label>Item</mat-label>
+        <mat-select formControlName="item_id" required>
+            <mat-option *ngFor="let item of items" [value]="item.id">
+                {{item.name}} - {{item.class}} - {{item.subject_name}} - {{item.edition}} Edition
+            </mat-option>
+        </mat-select>
+        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+        <mat-error>Item is required!</mat-error>
+    </mat-form-field>
+    </div> 
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="added"
+        [formControl]="itemForm.controls['added']"
+        placeholder="Quantity">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

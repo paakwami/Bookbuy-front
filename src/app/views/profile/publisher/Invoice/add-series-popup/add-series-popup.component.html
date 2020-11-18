@@ -1,0 +1,46 @@
+<h1 matDialogTitle>Add A New</h1>
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="name"
+        [formControl]="itemForm.controls['name']"
+        placeholder="Name">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-label>Class Group</mat-label>
+        <mat-select formControlName="classgroup_id" required>
+            <mat-option *ngFor="let classgroup of classgroups" [value]="classgroup.id">
+                {{classgroup.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Class is required!</mat-error>
+    </mat-form-field>
+    </div>
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-label>Subject</mat-label>
+        <mat-select formControlName="subject_id" required>
+            <mat-option *ngFor="let subject of subjects" [value]="subject.id">
+                {{subject.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Subject is required!</mat-error>
+    </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

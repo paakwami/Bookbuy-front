@@ -1,0 +1,17 @@
+<h1 matDialogTitle>Respond to Request</h1>
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    
+    <div class="profile-title text-center mb-1">
+        <div class="main-title">{{user.name}}</div>
+
+      </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Accept</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

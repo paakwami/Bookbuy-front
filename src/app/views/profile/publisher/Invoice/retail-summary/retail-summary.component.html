@@ -1,0 +1,184 @@
+<div class="handle" >
+  <button routerLink="/invoice/agentnewsale"
+  mat-raised-button class="mb-05"
+  color="primary">
+  New Sale
+    <mat-icon>shop</mat-icon>
+  </button>
+</div>
+
+<div class="second" >
+  <button (click)="openMakePayment({}, true)"
+  mat-raised-button class="mb-05"
+  color="accent">
+  New Payment
+    <mat-icon>attach_money</mat-icon>
+  </button>
+</div>
+
+<div class="third" >
+  <button routerLink="/invoice/retail"
+  mat-raised-button class="mb-05"
+  color="warn">
+  back to Retailers
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+
+<div fxLayout="row wrap">
+  <div
+  fxFlex="100"
+  class="p-0 mb-1">
+    <mat-card class="user-card p-0">
+      <mat-card-title class="mat-bg-primary">
+        <div class="card-title-text">
+          <a href="" class="toolbar-avatar md mr-1"><img [src]="" alt=""></a>
+          <span>{{selectedretailer.name}}</span>
+          <span fxFlex></span>
+          <button mat-icon-button [matMenuTriggerFor]="userMenu" class="">
+              <mat-icon class="">more_vert</mat-icon>
+          </button>
+          <mat-menu #userMenu="matMenu">
+              <button mat-menu-item>Follow</button>
+              <button mat-menu-item>Message</button>
+              <button mat-menu-item>Block</button>
+              <button mat-menu-item>Delete</button>
+          </mat-menu>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-card-title>
+      <mat-card-content>
+        <!-- user detail lines-->
+        <div class="user-details">
+          <p><mat-icon class="text-muted">date_range</mat-icon>Phone: {{selectedretailer.phone}}</p>
+          <p><mat-icon class="text-muted">location_on</mat-icon>Location: {{selectedretailer.location}}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<!-- COIN ROW --> 
+
+<div fxLayout="row wrap" [@animate]="{value:'*',params:{delay:'600ms',scale:'.9'}}">
+  <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" >
+    <mat-card class="rounded-circle" fxLayout="row wrap" fxLayoutAlign="start center">
+      <img class="avatar-md rounded-circle" src="assets/images/cryptocurrencies/BTC.png" alt="">
+      <span style="width: 20px"></span>
+      <div>
+        <p class="m-0 text-14 text-muted line-height-1">Current Balance</p>
+        <span class="text-18 font-weight-bold text-red">GHC {{retailerdetails.ledger === null ? '0.00' : retailerdetails.ledger.cbalance}}<span class="material-icons mat-icon-18">arrow_drop_down</span></span>
+      </div>
+    </mat-card> 
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" >
+    <mat-card class="rounded-circle" fxLayout="row wrap" fxLayoutAlign="start center">
+      <img class="avatar-md rounded-circle" src="assets/images/cryptocurrencies/ETH.png" alt="">
+      <span style="width: 20px"></span>
+      <div >
+        <p class="m-0 text-14 text-muted line-height-1">Last Payment</p> 
+        <span class="text-18 font-weight-bold text-green">GHC {{lastpayment == undefined ? '0.00' : lastpayment.amount}} <span class="material-icons mat-icon-18"></span></span>
+      </div>
+    </mat-card>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" >
+    <mat-card class="rounded-circle" fxLayout="row wrap" fxLayoutAlign="start center">
+      <img class="avatar-md rounded-circle" src="assets/images/cryptocurrencies/LTC.png" alt="">
+      <span style="width: 20px"></span>
+      <div>
+        <p class="m-0 text-14 text-muted line-height-1">Last Invoice</p>
+        <span class="text-18 font-weight-bold text-red">GHC {{lastinvoice ==undefined ? '0.00' : lastinvoice.after_discount}} <span class="material-icons mat-icon-18"></span></span>
+      </div>
+    </mat-card>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="20" fxFlex.sm="50" >
+    <mat-card class="rounded-circle" fxLayout="row wrap" fxLayoutAlign="start center">
+      <img class="avatar-md rounded-circle" src="assets/images/cryptocurrencies/BTS.png" alt="">
+      <span style="width: 20px"></span>
+      <div>
+        <p class="m-0 text-14 text-muted line-height-1">Last Payment Date</p>
+        <span class="text-18 font-weight-bold text-red">{{lastpayment == undefined ? 'NA' : lastpayment.made_on|date:'mediumDate'}} <span class="material-icons mat-icon-18"></span></span>
+      </div>
+    </mat-card>
+  </div>
+</div>
+<!--/ COIN ROW -->
+
+<!-- Table row -->
+<div *ngIf='retailerdetails.invoices' fxLayout="row wrap" [@animate]="{value:'*',params:{delay:'800ms',scale:'.9'}}">
+  <div fxFlex="100" fxFlex.gt-sm="66.67">
+      <mat-card class="p-0 ">
+          <h6 class="pl-1 pt-1 m-0 ">Invoices</h6>
+          <ngx-datatable
+          class="material ml-0 mr-0"
+          [rows]="retailerdetails.invoices"
+          [columnMode]="'flex'"
+          [headerHeight]="50"
+          [footerHeight]="0"
+          [rowClass]="getRowClass"
+          [rowHeight]="'auto'">
+          
+          <ngx-datatable-column name="Total Sale" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <div fxLayout="row wrap" fxLayoutAlign="start center">
+                  {{ row?.total_sale }}
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Discount" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row?.discount}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Value" [flexGrow]="1">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row?.after_discount}}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Amount Paid" [flexGrow]="1">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row?.amount_paid}}
+                  </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Date" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row?.created_at|date:'mediumDate'}}
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>    
+      </mat-card>
+  </div>
+
+  <div fxFlex="100" *ngIf='retailerdetails.payments' fxFlex.gt-sm="33.33">
+      <mat-card class="p-0 ">
+          <h6 class="ml-1 mt-1">Payments</h6>
+          <ngx-datatable
+                  class="material ml-0 mr-0"
+                  [rows]="retailerdetails.payments"
+                  [columnMode]="'force'"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [scrollbarH]="true"
+                  [limit]="10"
+                  [rowHeight]="50">
+          
+          <ngx-datatable-column name="Made At" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row?.mode }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="amount" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row?.amount}}
+            </ng-template>
+          </ngx-datatable-column>
+          
+          <ngx-datatable-column name="Date" [flexGrow]="1">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                        <button mat-stroked-button color="warn">{{row?.made_on|date}}</button>
+                  </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>    
+      </mat-card> 
+  </div>
+</div>

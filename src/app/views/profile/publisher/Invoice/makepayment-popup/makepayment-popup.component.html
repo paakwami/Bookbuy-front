@@ -1,0 +1,35 @@
+<h1 matDialogTitle>Add A New Item</h1>
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="amount"
+        [formControl]="itemForm.controls['amount']"
+        placeholder="Amount">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-label>Payment Was Made Through</mat-label>
+        <mat-select formControlName="payment_method_id" required>
+            <mat-option *ngFor="let paymentmethod of paymentmethods" [value]="paymentmethod.id">
+                {{paymentmethod.name}}
+            </mat-option>
+        </mat-select>
+        <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+        <mat-error>payment type is required!</mat-error>
+    </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

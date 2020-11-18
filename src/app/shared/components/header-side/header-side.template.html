@@ -1,0 +1,51 @@
+<mat-toolbar class="topbar">
+  <!-- Sidenav toggle button -->
+  <button
+    *ngIf="layoutConf.sidebarStyle !== 'compact' && status === true"
+    mat-icon-button
+    id="sidenavToggle"
+    (click)="toggleSidenav()"
+    matTooltip="Toggle Hide/Open"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  
+  <!-- Search form -->
+  <!-- <div fxFlex fxHide.lt-sm="true" class="search-bar">
+    <form class="top-search-form">
+      <mat-icon role="img">search</mat-icon>
+      <input autofocus="true" placeholder="Search" type="text" />
+    </form>
+  </div> -->
+
+  <span fxFlex></span>
+  <!-- Language Switcher -->
+
+  <!-- Open "views/search-view/result-page.component" to understand how to subscribe to input field value -->
+
+  <!-- Notification toggle button -->
+
+  <!-- Top left user menu -->
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="accountMenu"
+    class="topbar-button-right img-button"
+  >
+    <img src="assets/images/face-7.jpg" alt="" />
+  </button> 
+
+  <mat-menu #accountMenu="matMenu">
+    <button *ngIf="status === true" mat-menu-item [routerLink]="['/profile/overview']">
+      <mat-icon>account_box</mat-icon>
+      <span>Profile</span>
+    </button>
+    <button *ngIf="status === true" mat-menu-item (click)=signOut()>
+      <mat-icon>exit_to_app</mat-icon>
+      <span> Sign Out</span>
+    </button>
+    <button *ngIf="status === false" mat-menu-item [routerLink]="['/sessions/signin4']">
+      <mat-icon>exit_to_app</mat-icon>
+      <span> Sign In</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

@@ -1,0 +1,197 @@
+<div>
+    <div fxLayout="row" fxLayout.lt-md="column" *ngIf="cart.length">
+      <div fxFlex="70" [@animate]="{value:'*',params:{delay: '100ms', x:'-50px'}}">
+        <mat-card class="mb-16">
+          <mat-card-title>
+            Billing address 
+          </mat-card-title>
+          <form [formGroup]="checkoutForm">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+  
+              <div fxFlex="50" class="pr-16">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="First name" value="" [formControl]="checkoutForm.controls['firstName']">
+                  <mat-error>
+                    First Name is required 
+                </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div fxFlex="50" class="pr-16">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Last name" value="" [formControl]="checkoutForm.controls['lastName']">
+                  <mat-error>
+                    Last Name is required 
+                </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" class="pr-16">
+                <mat-form-field class="full-width">
+                  <mat-select (selectionChange)="change($event)" placeholder="Region" [formControl]="checkoutForm.controls['region']">
+                    <mat-option *ngFor="let r of regions" [value]="r">
+                      {{ r.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    Region is required 
+                </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" class="pr-16">
+                <mat-form-field class="full-width">
+                  <mat-select placeholder="District" [formControl]="checkoutForm.controls['district']">
+                    <mat-option *ngFor="let d of districts" [value]="d.id">
+                      {{ d.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    District is required 
+                </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div fxFlex="50" class="pr-16">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Address" value="" [formControl]="checkoutForm.controls['address']">
+                  <mat-error>
+                    Address is required 
+                </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div fxFlex="50" class="pr-16">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Ghana Post GPS" value="" [formControl]="checkoutForm.controls['gps']">
+                  <mat-error>
+                    GPS is required 
+                </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div fxFlex="50" class="pr-16">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="City" [formControl]="checkoutForm.controls['city']">
+                  <mat-error>
+                    City is required 
+                </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div fxFlex="50" class="pr-16">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Phone" [formControl]="checkoutForm.controls['phone']">
+                  <mat-error>
+                    Phone is required 
+                </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </form>
+        </mat-card>
+      </div>
+  
+      <div fxFlex="30" [@animate]="{value:'*',params:{delay: '100ms', x:'50px'}}">
+        <mat-card class="default">
+          <mat-card-title>
+            Your order
+          </mat-card-title>
+          <mat-card-content class="p-0">
+            <mat-list class="compact-list mb-16">
+              <mat-divider></mat-divider>
+              <mat-list-item class="" *ngFor="let p of cart">
+                <img mat-list-avatar class="mr-16" [src]="p.product.picture" alt="">
+                <div fxLayout="row" fxFlex="100">
+                  <h6 class="m-0 mr-16 text-muted">
+                    <small>{{p.product.name}} - {{p.product.class_name}} x {{p.data.quantity}}</small>
+                  </h6>
+                  <span fxFlex></span>
+                  <div class="text-muted">GHC {{p.product.sale * p.data.quantity }}</div>
+                </div>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+  
+              <mat-list-item>
+                <div fxFlex="56px"></div>
+                <div fxLayout="row" fxFlex="100">
+                  <h6 class="m-0 mr-16 text-muted">
+                    <small>
+                      <strong>Subtotal:</strong>
+                    </small>
+                  </h6>
+                  <span fxFlex></span>
+                  <div class="text-muted">GHC {{subTotal}}</div>
+                </div>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+  
+              <!-- <mat-list-item>
+                <div fxFlex="56px"></div>
+                <div fxLayout="row" fxFlex="100">
+                  <h6 class="m-0 mr-16 text-muted">
+                    <small>
+                      <strong>Vat:</strong>
+                    </small>
+                  </h6>
+                  <span fxFlex></span>
+                  <div class="text-muted">{{vat}}%</div>
+                </div>
+                <mat-divider></mat-divider>
+              </mat-list-item> -->
+  
+              <mat-list-item>
+                <div fxFlex="56px"></div>
+                <div fxLayout="row" fxFlex="100">
+                  <h6 class="m-0 mr-16 text-muted">
+                    <small>
+                      <strong>Delivery:</strong>
+                    </small>
+                  </h6>
+                  <span fxFlex></span>
+                  <div class="text-muted">{{shipping}}</div>
+                </div>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+  
+              <mat-list-item>
+                <div fxFlex="56px"></div>
+                <div fxLayout="row" fxFlex="100">
+                  <h6 class="m-0 mr-16 text-muted">
+                    <small>
+                      <strong>Total:</strong>
+                    </small>
+                  </h6>
+                  <span fxFlex></span>
+                  <div class="text-muted">GHC {{total}}</div>
+                </div>
+              </mat-list-item>
+            </mat-list>
+<!--   
+            <div class="p-16">
+              <mat-radio-group fxLayout="column" fxLayoutGap="8px" [(ngModel)]="paymentMethod">
+                <mat-radio-button value="paypal">Paypal</mat-radio-button>
+                
+                <mat-radio-button value="card">Credit Card</mat-radio-button>
+                
+                <mat-radio-button value="bank">Bank Transfer</mat-radio-button>
+              </mat-radio-group>
+            </div> -->
+  
+            <mat-card-actions>
+              <span fxFlex></span>
+              <button mat-raised-button color="primary" routerLink="/myshop/cart">Back to Cart</button>
+              <button mat-raised-button color="warn" (click)="placeOrder()" [disabled]="!checkoutForm.valid">Place Order</button>
+            </mat-card-actions>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  
+    <div *ngIf="!cart.length" [@animate]="{value:'*',params:{delay: '100ms', y:'-50px'}}">
+      <mat-card class="text-center">
+        <h5 class="mb-16">Your cart is empty</h5>
+        <button mat-raised-button color="accent" routerLink="/myshop"><mat-icon>chevron_left</mat-icon> Back to Shop</button>
+      </mat-card>
+    </div>
+  </div>

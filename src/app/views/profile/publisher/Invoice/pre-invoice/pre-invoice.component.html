@@ -1,0 +1,80 @@
+<div id="print-section"> 
+<div class="invoicehead">
+    <img src="assets/images/head.jpg"  height="200px">
+</div>
+<div class="invoicedetails">
+<div class="invoiceuser">
+    <h1 *ngIf="invoicenumber">Invoice Number: {{invoicenumber}}</h1>
+    <h1>Invoice Date:  {{currentDate | date: 'dd MMM yyyy' }}</h1>
+    <h1 class="amount">Amount Due: GHC {{afterdiscount}}</h1>
+</div>
+</div>
+<div class="viewtable">
+    <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+        <mat-card-content class="p-0">
+          <ngx-datatable
+                class="material ml-0 mr-0"
+                [rows]="sold"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [scrollbarH]="false"
+                [limit]="10"
+                [rowHeight]="50">
+                <ngx-datatable-column name="SN" [flexGrow]="1">
+                    <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                      {{rowIndex+1}}
+                    </ng-template>
+                  </ngx-datatable-column>
+                <ngx-datatable-column name="Name" [flexGrow]="1">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row?.item.name}} - {{row?.item.class}}
+                  </ng-template>
+                </ngx-datatable-column>
+                    <ngx-datatable-column name="Quantity" [flexGrow]="1">
+                      <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row?.quantity }}
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Unit Price" [flexGrow]="1">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                          {{row?.item.price}}
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="Total" [flexGrow]="1">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                          {{row?.item.price * row?.quantity}}
+                        </ng-template>
+                      </ngx-datatable-column>
+               
+              </ngx-datatable>
+        </mat-card-content>
+      </mat-card>
+
+</div>
+
+<div class="invoicedetails">
+<div class="invoiceuser">
+    <h1>Total:  {{totalsale}}</h1>
+    <h1>Discount:  {{items.discount}}%</h1>
+    <h1 class="amount">Amount Due: GHC{{afterdiscount}}</h1>
+</div>
+</div>
+</div>
+
+<div class="downbuttons">
+    <button *ngIf='!agreed && role.publisher' mat-raised-button class="mb-05" color="accent"(click)="createSale()" >Agree On Sale</button>
+    <button *ngIf='!agreed && role.agent' mat-raised-button class="mb-05" color="accent"(click)="agentCreateSale()" >Agree On Sale</button>
+    <button *ngIf='agreed' mat-raised-button class="mb-05" color="primary" (click)="print()" >Print Invoice</button>
+    <span fxFlex="8px"></span>
+    <button *ngIf='role.publisher' mat-raised-button class="mb-05" color="warn" routerLink="/invoice/newsale" >Discard Sale</button>
+    <button *ngIf='role.agent' mat-raised-button class="mb-05" color="primary" routerLink="/invoice/agentnewsale" >Make New Sale</button>
+    <span fxFlex="8px"></span>
+    <button *ngIf='!agreed && role.publisher' mat-raised-button class="mb-05" color="accent" routerLink="/invoice/home" >Discard Sale Return to Agents</button>
+    <button *ngIf='!agreed && role.agent' mat-raised-button class="mb-05" color="accent" routerLink="/invoice/retail" >Discard Sale Return to Retailers</button>
+    <span fxFlex="8px"></span>
+    <button *ngIf='agreed && role.publisher' mat-raised-button class="mb-05" color="accent" routerLink="/invoice/home" >Return to Agents</button>
+    <button *ngIf='agreed && role.agent' mat-raised-button class="mb-05" color="accent" routerLink="/invoice/retail" >Return to Retailers</button>
+
+</div>
+

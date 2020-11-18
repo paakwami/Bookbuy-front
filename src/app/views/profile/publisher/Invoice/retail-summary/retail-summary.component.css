@@ -1,0 +1,26 @@
+.handle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+}
+
+.second {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    z-index: 99;
+}
+
+.third {
+    position: fixed;
+    bottom: 120px;
+    right: 30px;
+    z-index: 99;
+}
+/deep/ .paid {
+    background-color: rgb(161, 228, 161);
+}
+/deep/ .unpaid {
+    background-color: rgb(241, 180, 156);
+}

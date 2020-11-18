@@ -1,0 +1,48 @@
+<div class="page-wrap height-100 black">
+  <div class="session-form-hold session-lockscreen">
+    <mat-card>
+      <mat-card-content>
+        <div fxFlex="column" fxFlexWrap="wrap">
+          <div fxFlexWrap="wrap" class="lockscreen-user">
+            <img class="lockscreen-face" src="assets/images/face-3.jpg" alt="">
+            <h5 class="m-0 font-normal">John Doe</h5>
+          </div>
+          <form [formGroup]="roleForm" (ngSubmit)="unlock()"> 
+
+            <div class="">
+              <mat-form-field appearance="outline" fxFlex="100">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="role" required>
+                    <mat-option [value]="'United States of America'">
+                        United States of America
+                    </mat-option>
+                    <mat-option [value]="'United Kingdom'">
+                        United Kingdom
+                    </mat-option>
+                    <mat-option [value]="'Russia'">
+                        Russia
+                    </mat-option>
+                    <mat-option [value]="'China'">
+                        China
+                    </mat-option>
+                    <mat-option [value]="'Japan'">
+                        Japan
+                    </mat-option>
+                    <mat-option [value]="'Turkey'">
+                        Turkey
+                    </mat-option>
+                </mat-select>
+                <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                <mat-error>Country is required!</mat-error>
+            </mat-form-field>
+
+            </div> 
+            
+            <button mat-raised-button class="mat-primary full-width mb-05" [disabled]="roleForm.invalid">Select Role</button>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
